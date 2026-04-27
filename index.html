@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muebles Nativos – Concepción, Chile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crema: #F5EFE0;
+    --crema-dark: #EDE4CE;
+    --madera: #8B6340;
+    --madera-light: #C4965A;
+    --madera-dark: #5C3D1E;
+    --verde: #2D4A32;
+    --verde-light: #4A7A54;
+    --negro: #1A1A18;
+    --gris: #6B6657;
+    --gris-claro: #AEA898;
+    --blanco: #FDFAF4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--blanco);
+    color: var(--negro);
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(253,250,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(139,99,64,0.15);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 500; letter-spacing: 0.06em;
+    color: var(--madera-dark); text-decoration: none;
+  }
+  .nav-logo span { color: var(--verde); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gris); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--madera); }
+  .nav-cta {
+    background: var(--verde); color: var(--crema) !important;
+    padding: 0.55rem 1.3rem; border-radius: 2px; transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--verde-light) !important; color: var(--crema) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1.5px; background: var(--negro); display: block; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 60px; left: 0; right: 0;
+    background: var(--blanco); padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--crema-dark); z-index: 99;
+    flex-direction: column; gap: 1.2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gris); text-decoration: none;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 70px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem 5rem 5rem;
+    background: var(--crema);
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--madera-light); margin-bottom: 1.4rem; font-weight: 500;
+  }
+  .hero-title {
+    font-size: clamp(3.2rem, 5vw, 5rem); font-weight: 300; line-height: 1.05;
+    color: var(--madera-dark); margin-bottom: 1.2rem;
+  }
+  .hero-title em { font-style: italic; color: var(--verde); }
+  .hero-sub {
+    font-size: 1rem; font-weight: 300; color: var(--gris);
+    line-height: 1.7; max-width: 380px; margin-bottom: 2.8rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--verde); color: var(--crema); padding: 0.85rem 2rem;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; border: none;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    border-radius: 2px; transition: background 0.25s;
+  }
+  .btn-primary:hover { background: var(--madera-dark); }
+  .btn-secondary {
+    background: transparent; color: var(--verde); padding: 0.85rem 2rem;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid var(--verde);
+    cursor: pointer; text-decoration: none; display: inline-block;
+    border-radius: 2px; transition: all 0.25s;
+  }
+  .btn-secondary:hover { background: var(--verde); color: var(--crema); }
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .hero-img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; filter: brightness(0.95) saturate(1.05);
+  }
+  .hero-tag {
+    position: absolute; bottom: 2.5rem; left: 2rem;
+    background: rgba(29,42,26,0.82); backdrop-filter: blur(8px);
+    color: var(--crema); padding: 1rem 1.5rem;
+    border-left: 3px solid var(--madera-light);
+  }
+  .hero-tag p { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
+  .hero-tag strong { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 400; }
+
+  /* ── SECTION COMMON ── */
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--madera-light); margin-bottom: 0.7rem; font-weight: 500;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--madera-dark); line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--verde); }
+  .section-sub {
+    font-size: 0.95rem; color: var(--gris); margin-top: 0.8rem; font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto;
+  }
+
+  /* ── HOME FEATURES ── */
+  #home-features {
+    padding: 5rem 5rem; background: var(--blanco);
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+    background: var(--crema-dark); border: 1px solid var(--crema-dark);
+    margin-top: 3rem;
+  }
+  .feature-item {
+    background: var(--blanco); padding: 2.5rem 2rem; text-align: center;
+  }
+  .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .feature-item h3 { font-size: 1.3rem; font-weight: 400; color: var(--madera-dark); margin-bottom: 0.5rem; }
+  .feature-item p { font-size: 0.87rem; color: var(--gris); line-height: 1.6; font-weight: 300; }
+
+  /* ── HOME CATEGORIES PREVIEW ── */
+  #home-cats {
+    padding: 5rem 5rem; background: var(--crema);
+  }
+  .cats-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 0.8rem; margin-top: 2.5rem;
+  }
+  .cat-card {
+    background: var(--blanco); padding: 1.5rem 1.2rem; text-align: center;
+    border: 1px solid transparent; cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cat-card:hover { border-color: var(--madera-light); transform: translateY(-3px); }
+  .cat-card .icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .cat-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: var(--madera-dark); }
+
+  /* ── CATALOGUE ── */
+  #page-catalogo { padding-top: 70px; }
+  .cat-hero {
+    background: var(--madera-dark); color: var(--crema);
+    padding: 4rem 5rem 3rem; text-align: center;
+  }
+  .cat-hero h1 { font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; margin-bottom: 0.6rem; }
+  .cat-hero p { font-size: 0.95rem; opacity: 0.75; font-weight: 300; }
+
+  /* filter bar */
+  .filter-bar {
+    background: var(--blanco); padding: 1.5rem 5rem;
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    border-bottom: 1px solid var(--crema-dark); position: sticky; top: 70px; z-index: 50;
+  }
+  .filter-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gris); }
+  .filter-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .chip {
+    padding: 0.4rem 1rem; font-size: 0.75rem; letter-spacing: 0.08em;
+    border: 1px solid var(--crema-dark); background: transparent; cursor: pointer;
+    font-family: 'Jost', sans-serif; color: var(--gris); border-radius: 2px; transition: all 0.2s;
+  }
+  .chip:hover, .chip.active { background: var(--verde); color: var(--crema); border-color: var(--verde); }
+  .search-box {
+    margin-left: auto; display: flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--crema-dark); padding: 0.4rem 0.8rem; border-radius: 2px;
+  }
+  .search-box input {
+    border: none; outline: none; background: transparent; font-family: 'Jost', sans-serif;
+    font-size: 0.85rem; color: var(--negro); width: 180px;
+  }
+  .search-box input::placeholder { color: var(--gris-claro); }
+
+  /* products grid */
+  .products-section { padding: 3rem 5rem 5rem; }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem;
+  }
+  .product-card {
+    background: var(--blanco); border: 1px solid var(--crema-dark); overflow: hidden;
+    cursor: pointer; transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .product-card:hover { box-shadow: 0 8px 30px rgba(92,61,30,0.12); transform: translateY(-4px); }
+  .product-img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; background: var(--crema);
+  }
+  .product-img img { width: 100%; height: 100%; object-fit: cover; }
+  .product-info { padding: 1.2rem; }
+  .product-cat {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--madera-light); margin-bottom: 0.3rem; font-weight: 500;
+  }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400;
+    color: var(--madera-dark); margin-bottom: 0.4rem; line-height: 1.2;
+  }
+  .product-desc { font-size: 0.82rem; color: var(--gris); line-height: 1.5; margin-bottom: 0.8rem; font-weight: 300; }
+  .product-meta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .product-meta span {
+    font-size: 0.7rem; color: var(--gris); letter-spacing: 0.05em;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .product-price {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500;
+    color: var(--verde); margin-bottom: 0.8rem;
+  }
+  .btn-wa {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    width: 100%; padding: 0.7rem; background: var(--verde); color: var(--crema);
+    font-family: 'Jost', sans-serif; font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; border: none; cursor: pointer;
+    text-decoration: none; border-radius: 2px; transition: background 0.2s;
+  }
+  .btn-wa:hover { background: var(--madera-dark); }
+  .badge-dest {
+    position: absolute; top: 0.8rem; left: 0.8rem;
+    background: var(--madera-light); color: var(--blanco);
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+  }
+  .product-card { position: relative; }
+
+  /* ── PERSONALIZADO ── */
+  #page-personalizado { padding-top: 70px; }
+  .custom-hero {
+    background: var(--verde); color: var(--crema);
+    padding: 5rem 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .custom-hero h1 { font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.2rem; }
+  .custom-hero p { font-size: 0.95rem; opacity: 0.85; font-weight: 300; line-height: 1.7; }
+  .custom-options {
+    padding: 4rem 5rem; background: var(--crema);
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  }
+  .custom-opt {
+    background: var(--blanco); padding: 2rem 1.5rem; border-left: 3px solid var(--madera-light);
+  }
+  .custom-opt h3 { font-size: 1.2rem; font-weight: 400; color: var(--madera-dark); margin-bottom: 0.5rem; }
+  .custom-opt p { font-size: 0.85rem; color: var(--gris); line-height: 1.6; font-weight: 300; }
+  .custom-cta {
+    padding: 4rem 5rem; text-align: center; background: var(--blanco);
+  }
+  .custom-cta h2 { font-size: 2.5rem; font-weight: 300; color: var(--madera-dark); margin-bottom: 1rem; }
+  .custom-cta p { font-size: 0.95rem; color: var(--gris); margin-bottom: 2rem; font-weight: 300; }
+  .custom-cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .btn-mail {
+    background: transparent; color: var(--madera-dark); padding: 0.85rem 2rem;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid var(--madera);
+    cursor: pointer; text-decoration: none; display: inline-block;
+    border-radius: 2px; transition: all 0.25s;
+  }
+  .btn-mail:hover { background: var(--madera-dark); color: var(--crema); }
+
+  /* ── SOBRE NOSOTROS ── */
+  #page-nosotros { padding-top: 70px; }
+  .about-hero {
+    background: var(--crema); padding: 5rem 5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .about-hero-left .section-eyebrow { text-align: left; }
+  .about-hero-left h1 { font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 300; color: var(--madera-dark); line-height: 1.1; margin-bottom: 1.5rem; }
+  .about-hero-left h1 em { font-style: italic; color: var(--verde); }
+  .about-hero-left p { font-size: 0.95rem; color: var(--gris); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+  .about-hero-right {
+    background: var(--madera-dark); color: var(--crema);
+    padding: 3rem 2.5rem; display: flex; flex-direction: column; gap: 2rem;
+  }
+  .about-stat h2 { font-size: 3.5rem; font-weight: 300; line-height: 1; }
+  .about-stat p { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-top: 0.3rem; }
+  .about-values { padding: 4rem 5rem; background: var(--negro); }
+  .about-values .section-title { color: var(--crema); }
+  .about-values .section-eyebrow { color: var(--madera-light); }
+  .values-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.08); margin-top: 2.5rem; }
+  .value-item { padding: 2.5rem 1.5rem; background: var(--negro); text-align: center; }
+  .value-item h3 { font-size: 1.3rem; font-weight: 400; color: var(--crema); margin-bottom: 0.5rem; }
+  .value-item p { font-size: 0.83rem; color: var(--gris-claro); line-height: 1.6; font-weight: 300; }
+
+  /* ── CONTACTO ── */
+  #page-contacto { padding-top: 70px; }
+  .contact-layout {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 70px);
+  }
+  .contact-left {
+    background: var(--madera-dark); color: var(--crema); padding: 5rem 4rem;
+  }
+  .contact-left h1 { font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 300; margin-bottom: 1rem; }
+  .contact-left p { font-size: 0.9rem; opacity: 0.75; line-height: 1.7; font-weight: 300; margin-bottom: 2.5rem; }
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact-info-item { display: flex; align-items: flex-start; gap: 1rem; }
+  .contact-icon { font-size: 1.2rem; margin-top: 2px; }
+  .contact-info-item strong { display: block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.2rem; font-weight: 500; }
+  .contact-info-item a, .contact-info-item span { color: var(--crema); text-decoration: none; font-size: 0.9rem; font-weight: 300; }
+  .contact-info-item a:hover { text-decoration: underline; }
+  .contact-right { background: var(--blanco); padding: 5rem 4rem; }
+  .contact-right h2 { font-size: 2rem; font-weight: 400; color: var(--madera-dark); margin-bottom: 2rem; }
+  .form-group { margin-bottom: 1.4rem; }
+  .form-group label { display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem; font-weight: 500; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--crema-dark);
+    font-family: 'Jost', sans-serif; font-size: 0.9rem; background: var(--blanco); color: var(--negro);
+    outline: none; border-radius: 2px; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--verde); }
+  .form-group textarea { resize: vertical; min-height: 130px; }
+  .form-error { font-size: 0.75rem; color: #C0392B; margin-top: 0.3rem; display: none; }
+  .form-success {
+    background: #EAF4EC; border-left: 3px solid var(--verde);
+    padding: 1rem 1.2rem; font-size: 0.9rem; color: var(--verde);
+    margin-top: 1rem; display: none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--negro); color: var(--crema);
+    padding: 3rem 5rem 2rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand .nav-logo { color: var(--crema); font-size: 1.6rem; display: block; margin-bottom: 0.7rem; }
+  .footer-brand .nav-logo span { color: var(--madera-light); }
+  .footer-brand p { font-size: 0.82rem; opacity: 0.55; line-height: 1.7; font-weight: 300; }
+  .footer-col h4 { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.5; margin-bottom: 1rem; font-family: 'Jost', sans-serif; font-weight: 500; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a { font-size: 0.85rem; color: var(--crema); opacity: 0.7; text-decoration: none; transition: opacity 0.2s; }
+  .footer-col ul li a:hover { opacity: 1; }
+  .footer-bottom {
+    background: var(--negro); text-align: center; padding: 1rem 5rem;
+    border-top: 0.5px solid rgba(255,255,255,0.08); font-size: 0.75rem; opacity: 0.4;
+  }
+
+  /* ── WA FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #25D366; color: white; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    nav { padding: 1rem 2.5rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 50vh; }
+    .hero-left { padding: 3rem 2.5rem 3rem; }
+    .cats-grid { grid-template-columns: repeat(2,1fr); }
+    footer { grid-template-columns: 1fr 1fr; padding: 3rem 2.5rem 2rem; }
+    .footer-bottom { padding: 1rem 2.5rem; }
+    .values-grid { grid-template-columns: repeat(2,1fr); }
+    #home-features, #home-cats, .products-section, .filter-bar,
+    .about-hero, .about-values, .cat-hero, .custom-hero, .custom-options, .custom-cta { padding-left: 2.5rem; padding-right: 2.5rem; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .contact-left, .contact-right { padding: 3rem 2.5rem; }
+    .about-hero { grid-template-columns: 1fr; gap: 2rem; }
+    .custom-hero { grid-template-columns: 1fr; }
+    .custom-options { grid-template-columns: repeat(2,1fr); }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 2.5rem 1.5rem; }
+    #home-features, #home-cats, .products-section, .about-hero, .about-values, .cat-hero,
+    .custom-hero, .custom-options, .custom-cta { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .filter-bar { padding: 1rem 1.5rem; }
+    .cats-grid { grid-template-columns: repeat(2,1fr); gap: 0.5rem; }
+    .contact-left, .contact-right { padding: 2.5rem 1.5rem; }
+    footer { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 1.5rem; }
+    .footer-bottom { padding: 1rem 1.5rem; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .custom-options { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#" onclick="showPage('home')">Muebles <span>Nativos</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Inicio</a></li>
+    <li><a href="#" onclick="showPage('catalogo')">Catálogo</a></li>
+    <li><a href="#" onclick="showPage('personalizado')">A medida</a></li>
+    <li><a href="#" onclick="showPage('nosotros')">Nosotros</a></li>
+    <li><a href="#" onclick="showPage('contacto')">Contacto</a></li>
+    <li><a href="https://wa.me/56965331772?text=Hola%2C%20quiero%20cotizar%20un%20mueble" target="_blank" class="nav-cta">Cotizar</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');toggleMenu()">Inicio</a>
+  <a href="#" onclick="showPage('catalogo');toggleMenu()">Catálogo</a>
+  <a href="#" onclick="showPage('personalizado');toggleMenu()">A medida</a>
+  <a href="#" onclick="showPage('nosotros');toggleMenu()">Nosotros</a>
+  <a href="#" onclick="showPage('contacto');toggleMenu()">Contacto</a>
+</div>
+
+<!-- ════════ PAGE: HOME ════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Concepción, Chile · Taller familiar</p>
+      <h1 class="hero-title">Muebles<br><em>Nativos</em></h1>
+      <p class="hero-sub">Muebles personalizados hechos en madera nativa, diseñados para durar generaciones.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('catalogo')">Ver catálogo</button>
+        <a class="btn-secondary" href="https://wa.me/56965331772?text=Hola%2C%20quiero%20cotizar%20por%20WhatsApp" target="_blank">Cotizar por WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-img" src="Imagen_1.png" alt="Comedor Muebles Nativos" onerror="this.style.display='none';this.parentElement.style.background='var(--crema)';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:5rem;\'>🪑</div>'">
+      <div class="hero-tag">
+        <p>Destacado del mes</p>
+        <strong>Juego de comedor industrial</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="home-features">
+    <div class="section-header">
+      <p class="section-eyebrow">Por qué elegirnos</p>
+      <h2 class="section-title">Artesanía con <em>propósito</em></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🌳</div>
+        <h3>Madera nativa</h3>
+        <p>Trabajamos con maderas seleccionadas de la zona sur de Chile, garantizando durabilidad y belleza natural.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📐</div>
+        <h3>Diseño a medida</h3>
+        <p>Cada pieza se fabrica según tus requerimientos: dimensiones, acabados, colores y materiales personalizados.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🚚</div>
+        <h3>Despacho en la Región del Biobío</h3>
+        <p>Entregamos en toda la octava región, Concepción y comunas aledañas, asegurando que tu mueble llegue en perfectas condiciones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS PREVIEW -->
+  <section id="home-cats">
+    <div class="section-header">
+      <p class="section-eyebrow">Nuestras categorías</p>
+      <h2 class="section-title">Todo para tu <em>hogar</em></h2>
+      <p class="section-sub">Explora nuestra colección y encuentra el mueble perfecto para cada espacio.</p>
+    </div>
+    <div class="cats-grid">
+      <div class="cat-card" onclick="filterAndGo('Juego de comedor')"><div class="icon">🍽️</div><h4>Comedor</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Muebles de cocina')"><div class="icon">🍳</div><h4>Cocina</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Sofás y sillones')"><div class="icon">🛋️</div><h4>Sofás</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Closet')"><div class="icon">🪟</div><h4>Closet</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Camas')"><div class="icon">🛏️</div><h4>Camas</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Escritorios')"><div class="icon">🖥️</div><h4>Escritorios</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Repisas')"><div class="icon">📚</div><h4>Repisas</h4></div>
+      <div class="cat-card" onclick="filterAndGo('Espejos')"><div class="icon">🪞</div><h4>Espejos</h4></div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <button class="btn-primary" onclick="showPage('catalogo')">Ver catálogo completo</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <span class="nav-logo">Muebles <span>Nativos</span></span>
+      <p>Taller familiar ubicado en Concepción, Chile. Muebles con madera nativa, diseñados para acompañarte por años.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Inicio</a></li>
+        <li><a href="#" onclick="showPage('catalogo')">Catálogo</a></li>
+        <li><a href="#" onclick="showPage('personalizado')">A medida</a></li>
+        <li><a href="#" onclick="showPage('nosotros')">Nosotros</a></li>
+        <li><a href="#" onclick="showPage('contacto')">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Categorías</h4>
+      <ul>
+        <li><a href="#" onclick="filterAndGo('Juego de comedor')">Comedor</a></li>
+        <li><a href="#" onclick="filterAndGo('Camas')">Camas</a></li>
+        <li><a href="#" onclick="filterAndGo('Closet')">Closet</a></li>
+        <li><a href="#" onclick="filterAndGo('Escritorios')">Escritorios</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/56965331772" target="_blank">+569 6533 1772</a></li>
+        <li><a href="mailto:mueblesmaderanativa17@gmail.com">Correo electrónico</a></li>
+        <li><a href="https://instagram.com/muebles_nativos" target="_blank">@muebles_nativos</a></li>
+        <li><a href="#" onclick="showPage('contacto')">Formulario</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">© 2025 Muebles Nativos · Concepción, Chile · Todos los derechos reservados</div>
+</div>
+
+<!-- ════════ PAGE: CATÁLOGO ════════ -->
+<div id="page-catalogo" class="page">
+  <div class="cat-hero">
+    <h1>Catálogo <em style="font-style:italic;color:var(--madera-light)">de muebles</em></h1>
+    <p>Encuentra el mueble perfecto para cada rincón de tu hogar · Todos personalizables</p>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filtrar:</span>
+    <div class="filter-chips" id="filterChips">
+      <button class="chip active" onclick="filterProducts('Todos')">Todos</button>
+      <button class="chip" onclick="filterProducts('Juego de comedor')">Comedor</button>
+      <button class="chip" onclick="filterProducts('Muebles de cocina')">Cocina</button>
+      <button class="chip" onclick="filterProducts('Puertas')">Puertas</button>
+      <button class="chip" onclick="filterProducts('Sofás y sillones')">Sofás</button>
+      <button class="chip" onclick="filterProducts('Cómodas')">Cómodas</button>
+      <button class="chip" onclick="filterProducts('Closet')">Closet</button>
+      <button class="chip" onclick="filterProducts('Repisas')">Repisas</button>
+      <button class="chip" onclick="filterProducts('Escritorios')">Escritorios</button>
+      <button class="chip" onclick="filterProducts('Arrimos')">Arrimos</button>
+      <button class="chip" onclick="filterProducts('Camas')">Camas</button>
+      <button class="chip" onclick="filterProducts('Espejos')">Espejos</button>
+      <button class="chip" onclick="filterProducts('Minicampers')">Minicampers</button>
+    </div>
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" id="searchInput" placeholder="Buscar mueble..." oninput="searchProducts(this.value)">
+    </div>
+  </div>
+
+  <div class="products-section">
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="nav-logo">Muebles <span>Nativos</span></span>
+      <p>Taller familiar en Concepción, Chile.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Inicio</a></li>
+        <li><a href="#" onclick="showPage('personalizado')">A medida</a></li>
+        <li><a href="#" onclick="showPage('contacto')">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/56965331772" target="_blank">+569 6533 1772</a></li>
+        <li><a href="mailto:mueblesmaderanativa17@gmail.com">Email</a></li>
+      </ul>
+    </div>
+    <div class="footer-col"></div>
+  </footer>
+  <div class="footer-bottom">© 2025 Muebles Nativos</div>
+</div>
+
+<!-- ════════ PAGE: PERSONALIZADO ════════ -->
+<div id="page-personalizado" class="page">
+  <div class="custom-hero">
+    <div>
+      <p class="section-eyebrow" style="color:var(--madera-light)">Tu visión, nuestra madera</p>
+      <h1>Pide tu mueble <em style="font-style:italic">personalizado</em></h1>
+      <p style="margin-top:1rem">Diseñamos y fabricamos cada mueble según tus necesidades exactas. Sin stock, sin estándares: solo lo que tu necesites para tu espacio.</p>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);padding:2rem;border-left:3px solid var(--madera-light)">
+      <p style="font-size:1.15rem;font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.6">
+        "Cada pieza que fabricamos nace de una conversación. Cuéntanos tu idea y la convertiremos en realidad."
+      </p>
+      <p style="font-size:0.8rem;margin-top:1rem;opacity:0.6;letter-spacing:0.12em;text-transform:uppercase">— Muebles Nativos</p>
+    </div>
+  </div>
+
+  <div class="custom-options">
+    <div class="custom-opt">
+      <h3>📐 Medidas exactas</h3>
+      <p>Fabricamos según el espacio que tienes disponible. Sin compromisos con dimensiones estándar.</p>
+    </div>
+    <div class="custom-opt">
+      <h3>🌲 Tipo de madera</h3>
+      <p>Pino, lenga, coihue, raulí y más. Te asesoramos sobre qué madera es mejor para tu uso y presupuesto.</p>
+    </div>
+    <div class="custom-opt">
+      <h3>🎨 Color y acabado</h3>
+      <p>Barnizado natural, lacado, pintado o wengué. Adaptamos el acabado a la estética de tu hogar.</p>
+    </div>
+    <div class="custom-opt">
+      <h3>✏️ Diseño</h3>
+      <p>Traenos tu referencia o dejanos diseñarlo. Fusionamos funcionalidad con estética en cada pieza.</p>
+    </div>
+    <div class="custom-opt">
+      <h3>⚙️ Funcionalidad</h3>
+      <p>Cajones, estantes ajustables, puertas con bisagras, rieles. Definimos juntos la función de cada detalle.</p>
+    </div>
+    <div class="custom-opt">
+      <h3>🏠 Espacio de instalación</h3>
+      <p>Visitamos tu espacio o trabajamos con planos para garantizar que el mueble encaje perfectamente.</p>
+    </div>
+  </div>
+
+  <div class="custom-cta">
+    <p class="section-eyebrow">¿Tienes una idea?</p>
+    <h2>Empecemos a <em style="font-style:italic;color:var(--verde)">diseñarlo</em></h2>
+    <p>Cuéntanos tu idea por WhatsApp o correo y te respondemos con un presupuesto sin compromiso.</p>
+    <div class="custom-cta-btns">
+      <a class="btn-primary" href="https://wa.me/56965331772?text=Hola%2C%20quiero%20cotizar%20un%20mueble%20personalizado" target="_blank">Cotizar por WhatsApp</a>
+      <a class="btn-mail" href="mailto:mueblesmaderanativa17@gmail.com?subject=Consulta%20mueble%20personalizado">Consultar por correo</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="nav-logo">Muebles <span>Nativos</span></span>
+      <p>Concepción, Chile · Muebles a medida.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Inicio</a></li>
+        <li><a href="#" onclick="showPage('catalogo')">Catálogo</a></li>
+        <li><a href="#" onclick="showPage('contacto')">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col"><h4>Contacto</h4><ul>
+      <li><a href="https://wa.me/56965331772" target="_blank">+569 6533 1772</a></li>
+    </ul></div>
+    <div class="footer-col"></div>
+  </footer>
+  <div class="footer-bottom">© 2025 Muebles Nativos</div>
+</div>
+
+<!-- ════════ PAGE: NOSOTROS ════════ -->
+<div id="page-nosotros" class="page">
+  <div class="about-hero">
+    <div class="about-hero-left">
+      <p class="section-eyebrow">Taller familiar en Concepción</p>
+      <h1>Nuestra <em>historia</em></h1>
+      <p>En Muebles Nativos somos un taller familiar ubicado en Concepción, dedicado a la creación de muebles que combinan funcionalidad, elegancia y durabilidad.</p>
+      <p>Trabajamos con dedicación y cuidado en cada pieza, buscando entregar productos de alta calidad pensados para acompañar a nuestros clientes por muchos años.</p>
+      <p>Realizamos despachos en la 8va región, Concepción y comunas aledañas, acercando nuestro trabajo a quienes valoran el diseño personalizado y la calidez de los muebles hechos con compromiso y detalle.</p>
+    </div>
+    <div class="about-hero-right">
+      <div class="about-stat">
+        <h2>+20</h2>
+        <p>Años de experiencia</p>
+      </div>
+      <div class="about-stat">
+        <h2>+500</h2>
+        <p>Muebles fabricados</p>
+      </div>
+      <div class="about-stat">
+        <h2>100%</h2>
+        <p>Madera nativa chilena</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-values">
+    <div class="section-header">
+      <p class="section-eyebrow">Lo que nos define</p>
+      <h2 class="section-title" style="color:var(--crema)">Nuestros <em>valores</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-item">
+        <h3>Calidad</h3>
+        <p>Cada mueble pasa por un riguroso control de calidad antes de llegar a tu hogar.</p>
+      </div>
+      <div class="value-item">
+        <h3>Compromiso</h3>
+        <p>Nos comprometemos con cada cliente, desde la primera consulta hasta la entrega final.</p>
+      </div>
+      <div class="value-item">
+        <h3>Sustentabilidad</h3>
+        <p>Usamos maderas de origen responsable y minimizamos el desperdicio en cada producción.</p>
+      </div>
+      <div class="value-item">
+        <h3>Detalle</h3>
+        <p>Los pequeños detalles hacen la diferencia. Cada unión, cada acabado, importa.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="nav-logo">Muebles <span>Nativos</span></span>
+      <p>Concepción, Chile.</p>
+    </div>
+    <div class="footer-col"><h4>Navegación</h4><ul>
+      <li><a href="#" onclick="showPage('home')">Inicio</a></li>
+      <li><a href="#" onclick="showPage('catalogo')">Catálogo</a></li>
+      <li><a href="#" onclick="showPage('contacto')">Contacto</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contacto</h4><ul>
+      <li><a href="https://wa.me/56965331772" target="_blank">+569 6533 1772</a></li>
+    </ul></div>
+    <div class="footer-col"></div>
+  </footer>
+  <div class="footer-bottom">© 2025 Muebles Nativos</div>
+</div>
+
+<!-- ════════ PAGE: CONTACTO ════════ -->
+<div id="page-contacto" class="page">
+  <div class="contact-layout">
+    <div class="contact-left">
+      <p class="section-eyebrow" style="color:var(--madera-light)">Estamos para ti</p>
+      <h1>Hablemos</h1>
+      <p>Tienes una consulta, quieres cotizar o simplemente quieres saber más sobre nuestros muebles. Escribenos.</p>
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <strong>WhatsApp</strong>
+            <a href="https://wa.me/56965331772" target="_blank">+569 65331772</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <strong>Correo</strong>
+            <a href="mailto:mueblesmaderanativa17@gmail.com">mueblesmaderanativa17@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📸</div>
+          <div>
+            <strong>Instagram</strong>
+            <a href="https://instagram.com/muebles_nativos" target="_blank">@muebles_nativos</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">👤</div>
+          <div>
+            <strong>Facebook</strong>
+            <a href="https://facebook.com" target="_blank">Alonso Javier</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <strong>Ubicación</strong>
+            <span>Concepción, Chile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <h2>Formulario de <em style="font-style:italic;color:var(--verde)">contacto</em></h2>
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" id="fname" placeholder="Tu nombre completo">
+        <div class="form-error" id="err-fname">Por favor ingresa tu nombre</div>
+      </div>
+      <div class="form-group">
+        <label>Correo *</label>
+        <input type="email" id="femail" placeholder="tucorreo@ejemplo.com">
+        <div class="form-error" id="err-femail">Por favor ingresa un correo válido</div>
+      </div>
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" id="fphone" placeholder="+569 12345678">
+      </div>
+      <div class="form-group">
+        <label>Mensaje *</label>
+        <textarea id="fmessage" placeholder="Cuéntanos qué necesitas..."></textarea>
+        <div class="form-error" id="err-fmessage">Por favor escribe tu mensaje</div>
+      </div>
+      <button class="btn-primary" onclick="submitForm()" style="width:100%">Enviar mensaje</button>
+      <div class="form-success" id="formSuccess">✓ Mensaje enviado correctamente. Te respondemos pronto.</div>
+    </div>
+  </div>
+  <div class="footer-bottom" style="background:var(--negro);color:var(--crema)">© 2025 Muebles Nativos · Concepción, Chile</div>
+</div>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/56965331772?text=Hola%2C%20quiero%20consultar%20sobre%20sus%20muebles" target="_blank" title="Escribinos por WhatsApp">💬</a>
+
+<script>
+// ── DATA ──
+const products = [
+  { id:1, nombre:"Juego de comedor industrial", categoria:"Juego de comedor", desc:"Conjunto elegante de mesa y 6 sillas con estructura metálica y madera maciza. Diseño moderno para tu comedor.", material:"Madera de pino + hierro", medidas:"180×90×75 cm", precio:"$480.000", destacado:true, emoji:"🍽️" },
+  { id:2, nombre:"Mesa de comedor rústica", categoria:"Juego de comedor", desc:"Mesa maciza de madera raulí con acabado natural. Para 4–6 personas, estilo campestre y cálido.", material:"Raulí macizo", medidas:"160×80×74 cm", precio:"$320.000", destacado:false, emoji:"🍽️" },
+  { id:3, nombre:"Cocina integral esquinera", categoria:"Muebles de cocina", desc:"Mueble de cocina completo con cajones, alacenas y porta-microondas. Melamina color madera natural.", material:"Melamina + MDF", medidas:"A medida", precio:"$650.000", destacado:true, emoji:"🍳" },
+  { id:4, nombre:"Alacena de cocina", categoria:"Muebles de cocina", desc:"Mueble superior con puertas y estantes ajustables. Aprovecha el espacio vertical de tu cocina.", material:"Madera + melamina", medidas:"90×30×80 cm", precio:"$180.000", destacado:false, emoji:"🍳" },
+  { id:5, nombre:"Puerta de acceso maciza", categoria:"Puertas", desc:"Puerta principal en madera nativa, lisa o con molduras. Disponible en distintos acabados.", material:"Lenga maciza", medidas:"80×200 cm", precio:"$290.000", destacado:false, emoji:"🚪" },
+  { id:6, nombre:"Puerta interior con vidrio", categoria:"Puertas", desc:"Puerta para habitaciones con panel de vidrio templado. Luz y diseño en un solo mueble.", material:"Pino + vidrio templado", medidas:"70×200 cm", precio:"$220.000", destacado:false, emoji:"🚪" },
+  { id:7, nombre:"Sofá de 3 cuerpos", categoria:"Sofás y sillones", desc:"Sofá modular tapizado en tela premium. Estructura de madera maciza con patas torneadas.", material:"Madera + tela resistente", medidas:"220×85×90 cm", precio:"$580.000", destacado:false, emoji:"🛋️" },
+  { id:8, nombre:"Sillón individual", categoria:"Sofás y sillones", desc:"Sillón cómodo y elegante para lectura o rincón de estar. Tapizado personalizable.", material:"Madera + cuero sintético", medidas:"80×80×90 cm", precio:"$280.000", destacado:true, emoji:"🛋️" },
+  { id:9, nombre:"Cómoda de 5 cajones", categoria:"Cómodas", desc:"Cómoda amplia para dormitorio con cajones deslizables suaves. Acabado lacado o barnizado.", material:"MDF + madera", medidas:"100×45×110 cm", precio:"$260.000", destacado:false, emoji:"🗄️" },
+  { id:10, nombre:"Closet 3 puertas corredizas", categoria:"Closet", desc:"Closet espacioso con espejo en puerta central, barra colgador y estantes modulares.", material:"Melamina + vidrio espejado", medidas:"180×55×220 cm", precio:"$520.000", destacado:true, emoji:"🪟" },
+  { id:11, nombre:"Repisa flotante", categoria:"Repisas", desc:"Repisa de pared en madera maciza. Ideal para libros, plantas o decoración.", material:"Pino o raulí", medidas:"80×20×5 cm", precio:"$35.000", destacado:false, emoji:"📚" },
+  { id:12, nombre:"Repisa escalera", categoria:"Repisas", desc:"Estante tipo escalera de 5 niveles, versátil y decorativo. Perfecto para cualquier espacio.", material:"Madera de pino", medidas:"45×30×160 cm", precio:"$120.000", destacado:false, emoji:"📚" },
+  { id:13, nombre:"Escritorio con cajón", categoria:"Escritorios", desc:"Escritorio funcional para home office con cajón lateral y espacio amplio de trabajo.", material:"MDF + estructura metálica", medidas:"140×60×75 cm", precio:"$195.000", destacado:false, emoji:"🖥️" },
+  { id:14, nombre:"Escritorio esquinero", categoria:"Escritorios", desc:"Aprovecha los rincones con este escritorio en L. Gran superficie de trabajo y cajones.", material:"Melamina roble", medidas:"140×140×75 cm", precio:"$280.000", destacado:true, emoji:"🖥️" },
+  { id:15, nombre:"Arrimo de madera", categoria:"Arrimos", desc:"Mueble aparador de living o entrada, con cajones y puertas. Elegante y funcional.", material:"Madera maciza natural", medidas:"120×40×85 cm", precio:"$310.000", destacado:false, emoji:"🪵" },
+  { id:16, nombre:"Cama matrimonial con cabecera", categoria:"Camas", desc:"Cama king size con cabecera tapizada. Base con cajones para maximizar el almacenamiento.", material:"Madera + tapizado", medidas:"160×200 cm", precio:"$450.000", destacado:true, emoji:"🛏️" },
+  { id:17, nombre:"Cama 1.5 plazas", categoria:"Camas", desc:"Cama juvenil o para huéspedes con base en madera sólida y listones.", material:"Pino macizo", medidas:"105×200 cm", precio:"$240.000", destacado:false, emoji:"🛏️" },
+  { id:18, nombre:"Espejo marco madera", categoria:"Espejos", desc:"Espejo decorativo con marco artesanal en madera nativa. Para baño, dormitorio o living.", material:"Lenga o pino", medidas:"60×80 cm", precio:"$95.000", destacado:false, emoji:"🪞" },
+  { id:19, nombre:"Minicamper equipado", categoria:"Minicampers", desc:"Minicamper artesanal con cama plegable, cocina integrada y almacenamiento optimizado.", material:"Madera + aluminio", medidas:"A medida", precio:"$3.200.000", destacado:true, emoji:"🚐" },
+  { id:20, nombre:"Organizador de oficina", categoria:"Muebles organizadores", desc:"Mueble archivador y organizador para oficina. Múltiples compartimentos para mantener el orden.", material:"Melamina blanca", medidas:"80×40×180 cm", precio:"$210.000", destacado:false, emoji:"🗂️" },
+];
+
+let currentFilter = 'Todos';
+let currentSearch = '';
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const filtered = products.filter(p => {
+    const matchCat = currentFilter === 'Todos' || p.categoria === currentFilter;
+    const matchSearch = p.nombre.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                        p.desc.toLowerCase().includes(currentSearch.toLowerCase());
+    return matchCat && matchSearch;
+  });
+  grid.innerHTML = filtered.length === 0
+    ? `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--gris)">No se encontraron muebles.</div>`
+    : filtered.map(p => `
+      <div class="product-card">
+        ${p.destacado ? '<div class="badge-dest">Destacado</div>' : ''}
+        <div class="product-img" style="font-size:3.5rem;display:flex;align-items:center;justify-content:center;height:200px">${p.emoji}</div>
+        <div class="product-info">
+          <div class="product-cat">${p.categoria}</div>
+          <div class="product-name">${p.nombre}</div>
+          <div class="product-desc">${p.desc}</div>
+          <div class="product-meta">
+            <span>📏 ${p.medidas}</span>
+            <span>🌲 ${p.material}</span>
+          </div>
+          <div class="product-price">Desde ${p.precio}</div>
+          <a class="btn-wa" href="https://wa.me/56965331772?text=Hola%2C%20quiero%20cotizar%20este%20mueble%3A%20${encodeURIComponent(p.nombre)}" target="_blank">
+            💬 Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    `).join('');
+}
+
+function filterProducts(cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  renderProducts();
+}
+
+function searchProducts(q) {
+  currentSearch = q;
+  renderProducts();
+}
+
+function filterAndGo(cat) {
+  currentFilter = cat;
+  currentSearch = '';
+  showPage('catalogo');
+  setTimeout(() => {
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', c.textContent.trim() === getCatLabel(cat));
+    });
+    renderProducts();
+  }, 50);
+}
+
+function getCatLabel(cat) {
+  const map = {
+    'Juego de comedor':'Comedor','Muebles de cocina':'Cocina','Sofás y sillones':'Sofás',
+    'Closet':'Closet','Camas':'Camas','Escritorios':'Escritorios','Repisas':'Repisas','Espejos':'Espejos'
+  };
+  return map[cat] || cat;
+}
+
+// ── NAVIGATION ──
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+  if (page === 'catalogo') {
+    setTimeout(renderProducts, 10);
+  }
+}
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ── FORM ──
+function submitForm() {
+  let valid = true;
+  const fname = document.getElementById('fname');
+  const femail = document.getElementById('femail');
+  const fmessage = document.getElementById('fmessage');
+
+  document.querySelectorAll('.form-error').forEach(e => e.style.display = 'none');
+
+  if (!fname.value.trim()) { document.getElementById('err-fname').style.display = 'block'; valid = false; }
+  if (!femail.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) { document.getElementById('err-femail').style.display = 'block'; valid = false; }
+  if (!fmessage.value.trim()) { document.getElementById('err-fmessage').style.display = 'block'; valid = false; }
+
+  if (valid) {
+    document.getElementById('formSuccess').style.display = 'block';
+    fname.value = ''; femail.value = ''; document.getElementById('fphone').value = ''; fmessage.value = '';
+    setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 5000);
+  }
+}
+
+// init
+renderProducts();
+</script>
+</body>
+</html>
